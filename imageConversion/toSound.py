@@ -3,6 +3,7 @@ import sounddevice as sd
 from ImgtoHsv import exportThisArrayRED as arrRed
 from ImgtoHsv import exportThisArrayBLUE as arrBlue
 from ImgtoHsv import exportThisArrayGREEN as arrGreen
+from ImgtoHsv import exportThisArrayGREY as amplitudeArr
 from midiutil import MIDIFile
 from mingus.core import chords
 NOTES = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B']

@@ -113,7 +113,10 @@ lstRGB = avgArrTranspose(lstOfAvgs)
 # plt.plot(lstRGB[1][0], 'o', color= 'green')
 # plt.plot(lstRGB[2][0], 'o', color= 'blue')
 # plt.show()
-
+exportThisArrayRED = convert2freq(lstRGB[0], np.min(lstRGB[0]), np.max(lstRGB[0]))
+exportThisArrayGREEN = convert2freq(lstRGB[1], np.min(lstRGB[1]), np.max(lstRGB[1]))
+exportThisArrayBLUE = convert2freq(lstRGB[2], np.min(lstRGB[2]), np.max(lstRGB[2]))
+print(exportThisArrayRED.shape)
 # Map each Color Value to a frequency? 
 # Not sure how useful that would be? 
 # I was thinking of more, each R-G-B value to be a Chord, ahhh.
@@ -128,21 +131,16 @@ grayLst = convert2grey(image)
 grayLstSmall = img2SmallImg(grayLst, H_SIZE, W_SIZE)
 
 greyMedArr = normalize_3d_array(grayLstSmall, 0.7)
-greyMedArr = greyMedArr.transpose((2, 0, 1))
+exportThisArrayGREY = greyMedArr
 print(greyMedArr.shape)
 print(greyMedArr[0][0])
 # plt.plot(greyMedArr[0][0], 'o')
 # plt.show()
 
-matMulRed = np.matmul(lstRGB[0], greyMedArr).transpose((1, 0))
-matMulGreen = np.matmul(lstRGB[1], greyMedArr).transpose((1, 0))
-matMulBlue = np.matmul(lstRGB[2], greyMedArr).transpose((1, 0))
+# matMulRed = np.matmul(lstRGB[0], greyMedArr).transpose((1, 0))
+# matMulGreen = np.matmul(lstRGB[1], greyMedArr).transpose((1, 0))
+# matMulBlue = np.matmul(lstRGB[2], greyMedArr).transpose((1, 0))
 
-print(matMulRed)
 
-exportThisArrayRED = convert2freq(matMulRed, np.min(matMulRed), np.max(matMulRed))
-exportThisArrayGREEN = convert2freq(matMulGreen, np.min(matMulGreen), np.max(matMulGreen))
-exportThisArrayBLUE = convert2freq(matMulBlue, np.min(matMulBlue), np.max(matMulBlue))
-print(exportThisArrayRED.shape)
 # plt.imshow(matMulRed, cmap='gray')
 # plt.show()
