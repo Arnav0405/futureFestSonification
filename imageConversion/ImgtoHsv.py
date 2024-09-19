@@ -1,4 +1,4 @@
-import cv2, time
+import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -61,11 +61,10 @@ def greyMedianArr(arr):
 
     for i in range(len(arr)):
         for j in range(len(arr[0])):
-            grayNmld = normalize_array(arr[i][j])  # Ensure this function is defined
-            gNmldAvg = np.median(grayNmld)  # Calculate the median of the normalized array
-            grayMedianArr.append(gNmldAvg)  # Append the median to the list
+            grayNmld = normalize_array(arr[i][j])
+            gNmldAvg = np.median(grayNmld) 
+            grayMedianArr.append(gNmldAvg) 
 
-    # Optionally, convert grayMedianArr to a NumPy array if needed
     grayMedianArr = np.array(grayMedianArr)
 
     return grayMedianArr
@@ -113,10 +112,7 @@ lstRGB = avgArrTranspose(lstOfAvgs)
 # plt.plot(lstRGB[1][0], 'o', color= 'green')
 # plt.plot(lstRGB[2][0], 'o', color= 'blue')
 # plt.show()
-exportThisArrayRED = convert2freq(lstRGB[0], np.min(lstRGB[0]), np.max(lstRGB[0]))
-exportThisArrayGREEN = convert2freq(lstRGB[1], np.min(lstRGB[1]), np.max(lstRGB[1]))
-exportThisArrayBLUE = convert2freq(lstRGB[2], np.min(lstRGB[2]), np.max(lstRGB[2]))
-print(exportThisArrayRED.shape)
+
 # Map each Color Value to a frequency? 
 # Not sure how useful that would be? 
 # I was thinking of more, each R-G-B value to be a Chord, ahhh.
@@ -133,14 +129,19 @@ grayLstSmall = img2SmallImg(grayLst, H_SIZE, W_SIZE)
 greyMedArr = normalize_3d_array(grayLstSmall, 0.7)
 exportThisArrayGREY = greyMedArr
 print(greyMedArr.shape)
-print(greyMedArr[0][0])
+# print(greyMedArr[0][0])
 # plt.plot(greyMedArr[0][0], 'o')
 # plt.show()
+print(lstRGB[0].shape)
 
-# matMulRed = np.matmul(lstRGB[0], greyMedArr).transpose((1, 0))
-# matMulGreen = np.matmul(lstRGB[1], greyMedArr).transpose((1, 0))
-# matMulBlue = np.matmul(lstRGB[2], greyMedArr).transpose((1, 0))
 
+matMulRed = np.matmul(lstRGB[0], greyMedArr.transpose((1, 0, 2)))
+matMulGreen = np.matmul(lstRGB[1], greyMedArr.transpose((1, 0, 2))).transpose((1, 0))
+matMulBlue = np.matmul(lstRGB[2], greyMedArr.transpose((1, 0, 2))).transpose((1, 0))
+exportThisArrayRED = convert2freq(matMulRed, np.min(matMulRed), np.max(matMulRed))
+exportThisArrayGREEN = convert2freq(matMulGreen, np.min(matMulGreen), np.max(matMulGreen))
+exportThisArrayBLUE = convert2freq(matMulBlue, np.min(matMulBlue), np.max(matMulBlue))
+print(exportThisArrayRED.shape)
 
 # plt.imshow(matMulRed, cmap='gray')
 # plt.show()
